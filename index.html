@@ -1,75 +1,105 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/icon" href="./assets/Favicon/favicon-16x16.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./styles/basket.css">
-    <link rel="stylesheet" href="./styles/fonts.css">
-    <link rel="stylesheet" href="./styles/standard.css">
-    <script src="./scripts/db.js" defer></script>
-    <script src="script.js" defer></script>
-    <script src="./scripts/template.js" defer></script>
-</head>
-<body onload="initPage()" class="grid_layout">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/icon" href="./assets/Favicon/favicon-16x16.png">
+        <link rel="stylesheet" href="./styles/standard.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="./styles/basket.css">
+        <link rel="stylesheet" href="./styles/fonts.css">
+        <script src="./scripts/db.js" defer></script>
+        <script src="./scripts/template.js" defer></script>
+        <script src="script.js" defer></script>
+        
+    </head>
+    <body onload="initPage()" class="grid_layout">
 
-<header class="header grid_header">
-    <img class="ba_logo" src="./assets/Logo/Logo.png" alt="Bestellt-App_Logo">
-    <img class="pizza_icon" src="./assets/icons/pizza_icon.png" alt="Pizza Icon">
-
-    <div class="hamburger" id="hamburger_icon">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</header>
-  
-    <section class="grid_teaser"> 
-        <img class="fired_pizza" src="./assets/img/offenpizza_header.png" alt="wood-fired pizza">
-    </section> 
-    
-    <main class="grid_main">  
-        <section>
-            <h1> Internationale Spezialitäten</h1>
-            <div class="food_and_drinks">
-                <a>Asiatisch -</a>
-                <a>Italienisch -</a>
-                <a>Spanisch</a>
+        <header class="header grid_header">
+            <div class="header_content">
+                <img class="ba_logo" src="./assets/Logo/Logo.png" alt="Bestellt-App_Logo">
+                <img class="pizza_icon" src="./assets/icons/hamburger_icon.svg" alt="Pizza Icon">
             </div>
-        </section>
-        <section id="menu" class="menu_section"> </section>
-    </main>
+        </header>
+        <div class="content_wrapper">
+            <section class="grid_teaser">
+                <img class="fired_pizza" src="./assets/img/offenpizza_header.png" alt="wood-fired pizza">
+                <img src="./assets/img/tu-pizza.png" class="floating_pizza">
+                <img src="./assets/icons/pizza_icon.png" class="floating_pizza">
+            </section>
 
-    <aside id="shopping_cart" class="cart_aside grid_aside"> <div class="basket_header">
-            <h2 class="basket">Warenkorb</h2>
-            <img class="basket_icon" src="./assets/icons/basket.png" alt="Einkaufwagen">
+            <main class="grid_main">
+                <section class="int_txt">
+                    <h1> Internationale Spezialitäten</h1>
+                    <div class="food_and_drinks">
+                        <div>
+                            <a>Asiatisch -</a>
+                            <a>Italienisch -</a>
+                            <a>Spanisch</a>
+                        </div>
+
+                        <div class="rating" onclick="openRating()">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            <span>(4.8)</span>
+                        </div>
+                    </div>
+                </section>
+                <section id="menu" class="menu_section"></section>
+            </main>
+
+            <div id="overlay" onclick="toggleBasket()" style="display: none;"></div>
+            <aside id="shopping_cart" class="cart_aside grid_aside">
+                <div class="basket_header" onclick="toggleBasket()">
+                    <h2 class="basket">Warenkorb</h2>
+                    <div class="close_basket">x</div>
+                    <img class="basket_icon" src="./assets/icons/basket_white.png" alt="Einkaufwagen">
+                </div>
+
+                <ul id="cart_list"></ul>
+                <div id="cart_content">
+                    <div id="shipping_options">
+                        <label class="delivery_option">
+                            <input type="radio" name="delivery" value="5.00" onchange="updateCart()" checked>
+                            <span>Liefern</span>
+                        </label>
+                        <label class="delivery_option">
+                            <input type="radio" name="delivery" value="0.00" onchange="updateCart()">
+                            <span>Abholen</span>
+                        </label>
+                    </div>
+
+                    <hr>
+
+                    <p>Zwieschensumme:
+                        <span id="subtotal">0.00€</span>
+                    </p>
+                    <p>Lieferkosten:
+                        <span id="shipping_cost">0.00€</span>
+                    </p>
+                    <p>Gesamt:
+                        <span id="total">0.00€</span>
+                    </p>
+
+                    <button id="buy" class="buy_button" onclick="checkout()">Bestellen</button>
+                    <div id="basket_items_container"></div>
+                </div>
+                <div id="empty-cart-message"> Ihr Warenkorb ist leer. Bitte fügen Sie einen Artikel hinzu! </div>
+
+            </aside>
         </div>
+        <footer class="footer grid_footer">
+            <div class="footer_content">
+                <p>&copy; 2025 Bestellt - App.Alle Rechte reserviert.</p>
+            </div>
+        </footer>
+        <div id="order_overlay" class="overlay d-none" onclick="closeOrderModal()">
+            <div class="order_modal" onclick="event.stopPropagation()">
+                <h2>Vielen Dank für Ihren Kauf!</h2>
+                <p>
+                    Ihre Bestellung ist unterwegs.</p>
 
-        <ul id="cart_list"></ul>
-        
-        <div id="shipping_options">
-            <label class="delivery_option">
-                <input type="radio" name="delivery" value="5.00" onchange="updateCart()" checked> 
-                <span>Liefern</span>
-            </label>
-            <label class="delivery_option">
-                <input type="radio" name="delivery" value="0.00" onchange="updateCart()"> 
-                <span>Abholen</span>
-            </label>
+                <button class="buy_button" onclick="closeOrderModal()">Schliessen</button>
+            </div>
         </div>
-        
-        <hr>
-        
-        <p>Zwieschensumme: <span id="subtotal">0.00€</span></p> 
-        <p>Lieferkosten: <span id="shipping_cost">3.90€</span></p>
-        <p>Gesamt: <span id="total">3.90€</span></p>
-        
-        <button id="buy" class="buy_button">Bestellen</button>
-    </aside>
-
-    <footer class="footer grid_footer"> 
-        <p>&copy; 2025 Bestellt-App. Alle Rechte reserviert.</p>
-    </footer>
-</body>
+    </body>
 </html>

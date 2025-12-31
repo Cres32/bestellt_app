@@ -1,42 +1,52 @@
-
-
-body {
-    font-family: 'Roboto', 'Arial', 'sans-serif';
-    padding: 0;
-    color: #333;
-    max-width: 1440px;
+html, body {
     width: 100%;
-    margin: 0 auto;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .fired_pizza {
     width: 100%;
-    height: 240px;
+    height: 250px; 
     object-fit: cover;
-    object-position: 100% 50%;
+    display: block;
 }
 
 .food_and_drinks{
+    display: flex;
+    justify-content: space-between;
     background-color: #eee;
     width: 100%;
     height: 50px;
+    margin-bottom: 16px;
+    padding-left: 16px;
 }
 
 h1 {
-    padding : 8px;
+    padding : 30px 8px;
 }
 
 .food_and_drinks {
     background-color: #eee;
-
     padding: 16px 8px;
+    height: auto;
+}
 
+.rating{ 
+    align-items: center;
+    gap: 5px;
+    color: black;
+    font-size: 1.1rem;
+    margin-left: auto;
+    cursor: pointer;
+    padding-right: 16px;
 }
 
 main {
-    grid-area: main;
-    display: grid; 
-    margin: 0px 8px;
+    flex: 1 1 0;
+    min-width: 300px; 
+    padding: 16px;
+    margin: 0;
 }
 
 h3 {
@@ -57,7 +67,7 @@ h3 {
 }
 
 .menu_section{
-    margin: 15px 0;
+    margin: 0;
 }
 
 .item_menu {
@@ -115,7 +125,6 @@ h3 {
     object-fit: contain;
 }
 
-
 .menu_item .description {
     padding: 16px 8px 8px 0;
 }
@@ -133,20 +142,29 @@ h3 {
     height: 40px;
     font-size: 36px;
     text-align: center;
-    
+    margin-left: 8px;
 }
 
-.item_info{
+.item_info {
     flex-grow: 1;
-    padding: 5px;
-    /* text-wrap: balance; */
+    padding: 10px;
+    padding-right: 50px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.item_info h3, 
+.menu_item b { 
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.2;
+    word-wrap: break-word;
+}
 
 .item_menu:last-child {
     border-bottom: none;
 }
-
 
 .item_menu button {
     color: #ff8c00;
@@ -155,8 +173,81 @@ h3 {
     cursor: pointer;
 }
 
-
 .menu_item:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1000px) {
+    .ba_logo { height: 45px; }
+    .pizza_icon { width: 40px; }
+    .header_content { padding: 8px 15px; }
+
+ 
+    .content_wrapper { 
+        flex-direction: column; 
+    }
+    .fired_pizza { 
+        height: 200px; 
+        border-radius: 0; 
+    }
+    .grid_teaser { 
+        order: 1; 
+    }
+    .grid_main { 
+        order: 2; 
+        width: 100%; 
+        padding: 15px;
+    }
+
+    .quantity_controls { gap: 15px; }
+}
+
+@media (max-width: 550px) {
+    .menu_item {
+        flex-direction: column; 
+        height: auto;
+        min-height: unset;
+        margin-bottom: 20px;
+    }
+    .item_image_wrapper {
+        width: 100%;
+        height: 180px; 
+        margin-right: 0;
+    }
+    .item_image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+        border-radius: 8px 8px 0 0; 
+    }
+    .item_info {
+        padding: 15px;
+        padding-right: 60px;
+    }
+    .add_button {
+        top: auto;
+        bottom: 15px;
+        right: 15px;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 340px) {
+    .delivery_option span { 
+        font-size: 0.8em; 
+    }
+    h1 { 
+        font-size: 1.3em; 
+    }
+}
+
+@media (max-width: 320px) {
+    .item_info h3 {
+        font-size: 1rem;
+    }
+    .delivery_option span {
+        padding: 8px 5px;
+        font-size: 0.8rem;
+    }
 }
