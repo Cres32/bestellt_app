@@ -1,5 +1,3 @@
-// HTML TEMPLATES
-
 function getDishHtml(dish) {
     return `
         <div class="menu_item"> 
@@ -16,27 +14,29 @@ function getDishHtml(dish) {
 
 
 function getCartItemHtml(item) {
-    const itemTotal = item.price * item.count;
-    
-    return `
-        <div class="item_details_left">
-            <div class="cart_item_info">
-                
+  return `
+        <div class="cart_item">
+            <div class="cart_item_top">
                 <span class="item_name">${item.name}</span>
+                <span class="item_price">${(item.price * item.count).toFixed(
+                  2
+                )}€</span>
             </div>
             
-            <div class="quantity_controls">
-                <button class="quantity_btn decrease_btn" onclick="decreaseAmount(${item.id})">-</button>
-                <span class="item_count">${item.count}x</span>
-                <button class="quantity_btn increase_btn" onclick="addToCart(${item.id})">+</button>
+            <div class="cart_item_bottom">
+                <div class="quantity_controls">
+                    <button class="quantity_btn" onclick="decreaseAmount(${
+                      item.id
+                    })">-</button>
+                    <span class="item_count">${item.count}x</span>
+                    <button class="quantity_btn" onclick="addToCart(${
+                      item.id
+                    })">+</button>
+                </div>
+                <button class="delete_btn" onclick="removeItem(${item.id})">
+                    <img src="./assets/icons/trash.png" alt="Löschen" class="trash_icon">
+                </button>
             </div>
-        </div>
-        
-        <div class="item_details_right">
-            <span class="item_price">${itemTotal.toFixed(2)}€</span>
-            <button class="delete_btn" onclick="removeItem(${item.id})">
-                <img src="./assets/icons/trash.png" alt="Löschen" class="trash_icon">
-            </button>
         </div>
     `;
 }
